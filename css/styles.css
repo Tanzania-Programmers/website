@@ -10,3 +10,9 @@
 .to-background{
     z-index: -2;
 }
+
+.bottom{
+    position: absolute;
+    bottom: 0;
+    height: 32px;
+}
