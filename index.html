@@ -454,7 +454,7 @@
     
                 if (!isValid) {
                     event.preventDefault();
-                    errorMessageElement.textContent = `Please enter a valid message (only text, spaces, and numbers, with length between ${minLength} and ${maxLength} characters).`;
+                    errorMessageElement.textContent = `Please enter a valid message and numbers, with length between ${minLength} and ${maxLength} special characters not allowed!).`;
                 } else {
                     errorMessageElement.textContent = '';
                 }
