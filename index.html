@@ -412,8 +412,21 @@
                 </div>
                 <div class="col-lg-12">
                     <fieldset>
-                        <textarea name="message" class="form-control" id="message" placeholder="Message" required=""></textarea>
-                    </fieldset>
+                      <textarea class="form-control" id="message" name="message" required placeholder="Message"
+          oninput="validateMessage(this)" title="Please enter alphabetic characters and spaces only."></textarea>
+          <script>
+            function validateMessage(textarea) {
+                const value = textarea.value.trim();  // for whitespace
+                const pattern = /^[a-zA-Z0-9\s]+$/;      //alphabetic characters and spaces
+            
+                if (!pattern.test(value)) {
+                    textarea.setCustomValidity("Please enter alphabetic characters only allowed!");
+                } else {
+                    textarea.setCustomValidity("");
+                }
+            }
+            </script>   
+        </fieldset>
                     <input type="hidden" name="_captcha" value="false">
                     <p id="error-message" style="color: red;"></p>
                 </div>
