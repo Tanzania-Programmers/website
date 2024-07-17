@@ -441,25 +441,6 @@
             </div>
         </form>
     
-        <script>
-            document.getElementById('contact').addEventListener('submit', function(event) {
-                const messageElement = document.getElementById('message');
-                const errorMessageElement = document.getElementById('error-message');
-                const message = messageElement.value.trim();
-    
-                const minLength = 10; // Minimum length of input
-                const maxLength = 200; // Maximum length of input
-    
-                const isValid = /^[a-zA-Z0-9 ]*$/.test(message) && message.length >= minLength && message.length <= maxLength;
-    
-                if (!isValid) {
-                    event.preventDefault();
-                    errorMessageElement.textContent = `Please enter a valid message and numbers, with length between ${minLength} and ${maxLength} special characters not allowed!).`;
-                } else {
-                    errorMessageElement.textContent = '';
-                }
-            });
-        </script>
         </div>
       </div>
     </div>
