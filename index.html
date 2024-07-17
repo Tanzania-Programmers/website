@@ -403,31 +403,50 @@
           </div>
         </div>
         <div class="col-lg-6 wow fadeInRight" data-wow-duration="0.5s" data-wow-delay="0.25s">
-	<form id="contact" action="https://formsubmit.co/96eb83cfb93e0ebff62474cb0a2466b3" method="POST" /> 
-          <!-- <form id="contact" action="https://formspree.io/f/xknanqvl" method="POST" />-->
+          <form id="contact" action="https://formsubmit.co/96eb83cfb93e0ebff62474cb0a2466b3" method="POST">
             <div class="row">
-           
-              <div class="col-lg-12">
-                <fieldset>
-                  <input type="text" name="email" id="email" pattern="[^ @]*@[^ @]*" placeholder="Your Email" required="">
-                </fieldset>
-              </div>
-              <div class="col-lg-12">
-                <fieldset>
-                  <textarea name="message" type="text" class="form-control" id="message" placeholder="Message" required=""></textarea>  
-                </fieldset>
-		      <input type="hidden" name="_captcha" value="false">
-              </div><br><br><br><br>
-              <div class="col-lg-12">
-                <fieldset>
-                  <button type="submit" id="form-submit" class="main-button" style="margin-top: 120px;">Send Message</button>
-                </fieldset>
-              </div>
+                <div class="col-lg-12">
+                    <fieldset>
+                        <input type="text" name="email" id="email" pattern="[^ @]*@[^ @]*" placeholder="Your Email" required="">
+                    </fieldset>
+                </div>
+                <div class="col-lg-12">
+                    <fieldset>
+                        <textarea name="message" class="form-control" id="message" placeholder="Message" required=""></textarea>
+                    </fieldset>
+                    <input type="hidden" name="_captcha" value="false">
+                    <p id="error-message" style="color: red;"></p>
+                </div>
+                <div class="col-lg-12">
+                    <fieldset>
+                        <button type="submit" id="form-submit" class="main-button" style="margin-top: 120px;">Send Message</button>
+                    </fieldset>
+                </div>
             </div>
             <div class="contact-dec">
-              <img src="assets/images/contact-decoration.png" alt="">
+                <img src="assets/images/contact-decoration.png" alt="">
             </div>
-          </form>
+        </form>
+    
+        <script>
+            document.getElementById('contact').addEventListener('submit', function(event) {
+                const messageElement = document.getElementById('message');
+                const errorMessageElement = document.getElementById('error-message');
+                const message = messageElement.value.trim();
+    
+                const minLength = 10; // Minimum length of input
+                const maxLength = 200; // Maximum length of input
+    
+                const isValid = /^[a-zA-Z0-9 ]*$/.test(message) && message.length >= minLength && message.length <= maxLength;
+    
+                if (!isValid) {
+                    event.preventDefault();
+                    errorMessageElement.textContent = `Please enter a valid message (only text, spaces, and numbers, with length between ${minLength} and ${maxLength} characters).`;
+                } else {
+                    errorMessageElement.textContent = '';
+                }
+            });
+        </script>
         </div>
       </div>
     </div>
