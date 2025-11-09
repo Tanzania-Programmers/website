@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Qwisha Protocol - Technical Documentation</title>
+    <link rel="icon" type="image/png" href="qwisha.png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <style>
+        :root {
+            --primary-color: #00882C;
+            --secondary-color: #006620;
+            --dark-bg: #003d1a;
+            --code-bg: #1a3325;
+            --accent: #00AA3A;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--dark-bg);
+            color: #e2e8f0;
+        }
+
+        .navbar {
+            background: rgba(0, 61, 26, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0, 136, 44, 0.3);
+        }
+
+        .logo {
+            height: 30px;
+            width: auto;
+            margin-right: 10px;
+        }
+
+        .navbar-brand {
+            color: var(--primary-color) !important;
+            font-weight: 700;
+        }
+
+        .code-block {
+            background: var(--code-bg);
+            border-radius: 10px;
+            padding: 1.5rem;
+            border-left: 4px solid var(--primary-color);
+            margin: 1rem 0;
+            overflow-x: auto;
+        }
+
+        .code-block code {
+            color: #e2e8f0;
+            font-family: 'Courier New', monospace;
+        }
+
+        .header-format {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 2rem 0;
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+            box-shadow: 0 10px 30px rgba(0, 136, 44, 0.3);
+        }
+
+        .command-card {
+            background: rgba(26, 51, 37, 0.8);
+            border: 1px solid rgba(0, 136, 44, 0.3);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .command-card:hover {
+            border-color: var(--primary-color);
+            box-shadow: 0 5px 15px rgba(0, 136, 44, 0.2);
+        }
+
+        .command-badge {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: var(--primary-color);
+            color: white;
+            border-radius: 20px;
+            font-weight: 600;
+            margin-right: 1rem;
+        }
+
+        .section {
+            padding: 4rem 0;
+            border-bottom: 1px solid rgba(0, 136, 44, 0.2);
+        }
+
+        .section:last-child {
+            border-bottom: none;
+        }
+
+        .hero-section {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 50%, var(--accent) 100%);
+            padding: 100px 0;
+            text-align: center;
+            color: white;
+        }
+
+        .diagram {
+            background: rgba(26, 51, 37, 0.8);
+            border-radius: 10px;
+            padding: 2rem;
+            margin: 2rem 0;
+            border: 1px solid rgba(0, 136, 44, 0.3);
+        }
+
+        .flow-step {
+            background: var(--primary-color);
+            color: white;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 0.5rem 0;
+            text-align: center;
+        }
+
+        .arrow {
+            text-align: center;
+            font-size: 2rem;
+            color: var(--accent);
+            margin: 0.5rem 0;
+        }
+
+        table {
+            background: rgba(26, 51, 37, 0.8);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        table th {
+            background: var(--primary-color);
+            color: white;
+            padding: 1rem;
+        }
+
+        table td {
+            padding: 1rem;
+            border-bottom: 1px solid rgba(0, 136, 44, 0.2);
+        }
+
+        .example-box {
+            background: rgba(26, 51, 37, 0.8);
+            border-left: 4px solid var(--accent);
+            padding: 1.5rem;
+            border-radius: 5px;
+            margin: 1rem 0;
+        }
+
+        .example-title {
+            color: var(--accent);
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        pre {
+            background: var(--code-bg) !important;
+            padding: 1.5rem !important;
+            border-radius: 8px;
+            border: 1px solid rgba(0, 136, 44, 0.3);
+        }
+
+        code {
+            color: #f1f5f9;
+        }
+
+        .highlight {
+            background: rgba(0, 136, 44, 0.2);
+            padding: 2px 6px;
+            border-radius: 3px;
+        }
+
+        .navbar-brand {
+            display: flex;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <img src="qwisha.png" alt="Qwisha Logo" class="logo"> Qwisha Protocol
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#overview">Overview</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#format">Header Format</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#commands">Commands</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#implementation">Implementation</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <h1 class="display-3 fw-bold mb-4">Qwisha Protocol</h1>
+            <p class="lead fs-4">A lightweight overlay protocol for enhancing SMS with modern messaging features</p>
+            <p class="mt-4">Version 1.0 | Compact Header Format | Zero Internet Required</p>
+        </div>
+    </section>
+
+    <!-- Overview Section -->
+    <section id="overview" class="section">
+        <div class="container">
+            <h2 class="mb-4"><i class="bi bi-info-circle"></i> Protocol Overview</h2>
+            <div class="row">
+                <div class="col-lg-8">
+                    <p class="lead">
+                        The Qwisha Protocol is an overlay protocol that extends standard SMS with advanced messaging features
+                        including message editing, deletion, replies, and search capabilities—all without requiring an internet connection.
+                    </p>
+                    <h4 class="mt-4 mb-3">Key Principles</h4>
+                    <ul class="list-unstyled">
+                        <li class="mb-3">
+                            <i class="bi bi-check-circle-fill text-success"></i>
+                            <strong>Compact Headers:</strong> Minimal overhead to avoid SMS segmentation
+                        </li>
+                        <li class="mb-3">
+                            <i class="bi bi-check-circle-fill text-success"></i>
+                            <strong>Backward Compatible:</strong> Falls back to regular SMS for non-Qwisha users
+                        </li>
+                        <li class="mb-3">
+                            <i class="bi bi-check-circle-fill text-success"></i>
+                            <strong>Stateless:</strong> Each message is self-contained with all necessary metadata
+                        </li>
+                        <li class="mb-3">
+                            <i class="bi bi-check-circle-fill text-success"></i>
+                            <strong>Resilient:</strong> Handles out-of-order delivery and message loss gracefully
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-lg-4">
+                    <div class="command-card">
+                        <h5><i class="bi bi-lightning-charge"></i> Protocol Stats</h5>
+                        <hr>
+                        <p><strong>Header Size:</strong> ~20-30 bytes</p>
+                        <p><strong>Overhead:</strong> Minimal</p>
+                        <p><strong>Commands:</strong> 4 (s, r, e, d)</p>
+                        <p><strong>Format:</strong> ASCII-compatible</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Header Format Section -->
+    <section id="format" class="section">
+        <div class="container">
+            <h2 class="mb-4"><i class="bi bi-file-code"></i> Header Format</h2>
+            
+            <div class="header-format">
+                @i=&lt;MSGID&gt;;c=&lt;CMD&gt;;r=&lt;REFID&gt; &lt;CONTENT&gt;
+            </div>
+
+            <div class="row mt-4">
+                <div class="col-lg-6">
+                    <h4>Format Breakdown</h4>
+                    <table class="table table-dark">
+                        <thead>
+                            <tr>
+                                <th>Field</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><code>@</code></td>
+                                <td>Protocol identifier (must be first character)</td>
+                            </tr>
+                            <tr>
+                                <td><code>i</code></td>
+                                <td>Message ID - Unique identifier for this message</td>
+                            </tr>
+                            <tr>
+                                <td><code>c</code></td>
+                                <td>Command - Action type (s, r, e, d)</td>
+                            </tr>
+                            <tr>
+                                <td><code>r</code></td>
+                                <td>Reference ID - ID of message being replied to/edited/deleted (optional)</td>
+                            </tr>
+                            <tr>
+                                <td><code>CONTENT</code></td>
+                                <td>Message content (separated by space after header)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-lg-6">
+                    <h4>Header Characteristics</h4>
+                    <div class="example-box">
+                        <div class="example-title">Example Header</div>
+                        <code>@i=abc123;c=s;r=null Hello World</code>
+                    </div>
+                    <div class="example-box">
+                        <div class="example-title">Compact Reply Header</div>
+                        <code>@i=xyz789;c=r;r=abc123 Yes, I agree!</code>
+                    </div>
+                    <div class="example-box">
+                        <div class="example-title">Edit Command</div>
+                        <code>@i=edit456;c=e;r=abc123 Hello Updated World</code>
+                    </div>
+                    <div class="example-box">
+                        <div class="example-title">Delete Command</div>
+                        <code>@i=del789;c=d;r=abc123</code>
+                        <p class="text-muted mt-2"><small>Note: Delete commands may not include content</small></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-4">
+                <h4>Message ID Format</h4>
+                <p>Message IDs are short alphanumeric strings (typically 6-12 characters) generated using a collision-resistant algorithm.</p>
+                <div class="code-block">
+                    <code>
+// Example ID generation (pseudocode)<br>
+function generateShortId(): String {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;return base64(sha256(timestamp + random + deviceId)).substring(0, 8)<br>
+}
+                    </code>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Commands Section -->
+    <section id="commands" class="section">
+        <div class="container">
+            <h2 class="mb-4"><i class="bi bi-terminal"></i> Protocol Commands</h2>
+            
+            <div class="row">
+                <div class="col-lg-6 mb-4">
+                    <div class="command-card">
+                        <span class="command-badge">s</span>
+                        <h4>Send</h4>
+                        <p class="text-muted">Send a new message</p>
+                        <hr>
+                        <p><strong>Usage:</strong> <code>@i=&lt;MSGID&gt;;c=s &lt;CONTENT&gt;</code></p>
+                        <p><strong>Reference ID:</strong> Optional (null or omitted)</p>
+                        <div class="example-box mt-3">
+                            <div class="example-title">Example</div>
+                            <code>@i=msg001;c=s Hello, how are you?</code>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 mb-4">
+                    <div class="command-card">
+                        <span class="command-badge">r</span>
+                        <h4>Reply</h4>
+                        <p class="text-muted">Reply to a specific message</p>
+                        <hr>
+                        <p><strong>Usage:</strong> <code>@i=&lt;MSGID&gt;;c=r;r=&lt;REFID&gt; &lt;CONTENT&gt;</code></p>
+                        <p><strong>Reference ID:</strong> Required (ID of message being replied to)</p>
+                        <div class="example-box mt-3">
+                            <div class="example-title">Example</div>
+                            <code>@i=msg002;c=r;r=msg001 I'm doing great, thanks!</code>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 mb-4">
+                    <div class="command-card">
+                        <span class="command-badge">e</span>
+                        <h4>Edit</h4>
+                        <p class="text-muted">Edit an existing message</p>
+                        <hr>
+                        <p><strong>Usage:</strong> <code>@i=&lt;MSGID&gt;;c=e;r=&lt;REFID&gt; &lt;NEW_CONTENT&gt;</code></p>
+                        <p><strong>Reference ID:</strong> Required (ID of message being edited)</p>
+                        <p class="text-warning"><small><i class="bi bi-exclamation-triangle"></i> Only the original sender can edit messages</small></p>
+                        <div class="example-box mt-3">
+                            <div class="example-title">Example</div>
+                            <code>@i=edit001;c=e;r=msg001 Hello, how are you doing?</code>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 mb-4">
+                    <div class="command-card">
+                        <span class="command-badge">d</span>
+                        <h4>Delete</h4>
+                        <p class="text-muted">Delete a message from both devices</p>
+                        <hr>
+                        <p><strong>Usage:</strong> <code>@i=&lt;MSGID&gt;;c=d;r=&lt;REFID&gt;</code></p>
+                        <p><strong>Reference ID:</strong> Required (ID of message being deleted)</p>
+                        <p><strong>Content:</strong> Optional (typically omitted)</p>
+                        <p class="text-warning"><small><i class="bi bi-exclamation-triangle"></i> Only the original sender can delete messages</small></p>
+                        <div class="example-box mt-3">
+                            <div class="example-title">Example</div>
+                            <code>@i=del001;c=d;r=msg001</code>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Message Flow Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="mb-4"><i class="bi bi-diagram-3"></i> Message Flow</h2>
+            
+            <div class="diagram">
+                <h5 class="mb-4">Send Message Flow</h5>
+                <div class="flow-step">1. User composes message</div>
+                <div class="arrow">↓</div>
+                <div class="flow-step">2. Generate unique message ID</div>
+                <div class="arrow">↓</div>
+                <div class="flow-step">3. Construct header: @i=&lt;ID&gt;;c=s &lt;CONTENT&gt;</div>
+                <div class="arrow">↓</div>
+                <div class="flow-step">4. Send via SMS</div>
+                <div class="arrow">↓</div>
+                <div class="flow-step">5. Receiver parses header and extracts content</div>
+                <div class="arrow">↓</div>
+                <div class="flow-step">6. Store in local database with message ID</div>
+            </div>
+
+            <div class="diagram mt-4">
+                <h5 class="mb-4">Edit Message Flow</h5>
+                <div class="flow-step">1. User selects message to edit</div>
+                <div class="arrow">↓</div>
+                <div class="flow-step">2. Generate new message ID for edit command</div>
+                <div class="arrow">↓</div>
+                <div class="flow-step">3. Construct header: @i=&lt;NEW_ID&gt;;c=e;r=&lt;ORIGINAL_ID&gt; &lt;NEW_CONTENT&gt;</div>
+                <div class="arrow">↓</div>
+                <div class="flow-step">4. Send via SMS</div>
+                <div class="arrow">↓</div>
+                <div class="flow-step">5. Receiver identifies edit command and reference ID</div>
+                <div class="arrow">↓</div>
+                <div class="flow-step">6. Update message content in local database</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Implementation Section -->
+    <section id="implementation" class="section">
+        <div class="container">
+            <h2 class="mb-4"><i class="bi bi-code-square"></i> Implementation Details</h2>
+            
+            <h4 class="mt-4 mb-3">Parsing Algorithm</h4>
+            <div class="code-block">
+                <pre><code class="language-kotlin">fun parseQwishaMessage(body: String): QwishaMessage? {
+    // Check if message starts with protocol identifier
+    if (!body.startsWith("@")) {
+        return null // Regular SMS
+    }
+    
+    // Find header end (first space)
+    val headerEnd = body.indexOf(' ')
+    if (headerEnd == -1) {
+        return parseHeaderOnly(body) // Delete command
+    }
+    
+    // Extract header and content
+    val header = body.substring(1, headerEnd)
+    val content = body.substring(headerEnd + 1)
+    
+    // Parse header fields
+    val fields = header.split(";").associate { part ->
+        val (key, value) = part.split("=", limit = 2)
+        key to value
+    }
+    
+    return QwishaMessage(
+        id = fields["i"] ?: return null,
+        command = fields["c"] ?: return null,
+        refId = fields["r"]?.takeIf { it != "null" && it.isNotEmpty() },
+        content = content
+    )
+}</code></pre>
+            </div>
+
+            <h4 class="mt-4 mb-3">Message Construction</h4>
+            <div class="code-block">
+                <pre><code class="language-kotlin">fun buildQwishaMessage(
+    msgId: String,
+    command: String,
+    refId: String? = null,
+    content: String
+): String {
+    val header = buildString {
+        append("@i=$msgId;c=$command")
+        if (refId != null) {
+            append(";r=$refId")
+        }
+    }
+    return "$header $content"
+}
+
+// Examples:
+// buildQwishaMessage("abc123", "s", null, "Hello") 
+// → "@i=abc123;c=s Hello"
+//
+// buildQwishaMessage("xyz789", "r", "abc123", "Hi!")
+// → "@i=xyz789;c=r;r=abc123 Hi!"</code></pre>
+            </div>
+
+            <h4 class="mt-4 mb-3">Database Schema</h4>
+            <div class="code-block">
+                <pre><code class="language-kotlin">@Entity
+data class Message(
+    @PrimaryKey val id: String,           // Message ID from protocol
+    val threadId: String,                  // Phone number
+    val content: String,                   // Message content
+    val outgoing: Boolean,                 // Sent vs received
+    val replyTo: String?,                  // Reference ID for replies
+    val status: String,                    // sent, delivered, read, failed
+    val timestamp: Long,                   // Unix timestamp
+    val hasOverlayHeader: Boolean = false  // Protocol message flag
+)</code></pre>
+            </div>
+
+            <h4 class="mt-4 mb-3">Error Handling</h4>
+            <div class="command-card">
+                <h5>Fallback Behavior</h5>
+                <ul>
+                    <li>If header parsing fails, treat as regular SMS</li>
+                    <li>If message ID is missing, generate a new one</li>
+                    <li>If reference ID is invalid, ignore the reference</li>
+                    <li>If edit/delete target doesn't exist, log and continue</li>
+                </ul>
+            </div>
+
+            <h4 class="mt-4 mb-3">Backward Compatibility</h4>
+            <div class="command-card">
+                <p>The protocol supports both new single-letter commands (<span class="highlight">s, r, e, d</span>) 
+                and legacy full-word commands (<span class="highlight">send, reply, edit, delete</span>) for backward compatibility.</p>
+                <div class="code-block mt-3">
+                    <code>
+// Both formats are accepted:<br>
+@i=abc123;c=s Hello        // New format<br>
+@i=abc123;c=send Hello     // Legacy format
+                    </code>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Security Considerations -->
+    <section class="section">
+        <div class="container">
+            <h2 class="mb-4"><i class="bi bi-shield-lock"></i> Security Considerations</h2>
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="command-card">
+                        <h5>Current Limitations</h5>
+                        <ul>
+                            <li>No message authentication by default</li>
+                            <li>Edit/delete commands can be spoofed</li>
+                            <li>No end-to-end encryption</li>
+                            <li>Message IDs are predictable</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="command-card">
+                        <h5>Future Enhancements</h5>
+                        <ul>
+                            <li>HMAC signatures for command verification</li>
+                            <li>End-to-end encryption support</li>
+                            <li>Cryptographically secure message IDs</li>
+                            <li>Message authentication codes (MAC)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-5 border-top border-secondary">
+        <div class="container text-center">
+            <p class="mb-2">Qwisha Protocol v1.0</p>
+            <p class="">Developed by 
+                <a href="https://github.com/vincent-laizer"><strong>Vicent Laizer</strong></a>
+            </p>
+            <p class="mt-3">
+                <a href="index.html" class="btn btn-outline-primary">
+                    <i class="bi bi-house"></i> Back to Home
+                </a>
+            </p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-kotlin.min.js"></script>
+    <script>
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Syntax highlighting for code blocks
+        document.querySelectorAll('pre code').forEach(block => {
+            block.classList.add('language-kotlin');
+        });
+    </script>
+</body>
+</html>
+
