@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Qwisha - Modern SMS Messaging, No Internet Required</title>
+    <link rel="icon" type="image/png" href="qwisha.png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <style>
+        :root {
+            --primary-color: #00882C;
+            --secondary-color: #006620;
+            --accent-color: #00AA3A;
+            --dark-bg: #003d1a;
+            --light-bg: #f0f9f4;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow-x: hidden;
+        }
+
+        .gradient-bg {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 50%, var(--accent-color) 100%);
+            min-height: 100vh;
+        }
+
+        .hero-section {
+            padding: 100px 0;
+            color: white;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+        }
+
+        .feature-card {
+            border: none;
+            border-radius: 15px;
+            padding: 2rem;
+            height: 100%;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            background: white;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            color: var(--dark-bg);
+        }
+
+        .download-btn {
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            border-radius: 50px;
+            background: white;
+            color: var(--primary-color);
+            border: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .download-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+            color: var(--primary-color);
+        }
+
+        .limitation-card {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .future-card {
+            background: linear-gradient(135deg, #e6f7ed 0%, #d4f2e0 100%);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            border: 2px dashed var(--primary-color);
+        }
+
+        .navbar {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .stats-section {
+            background: var(--dark-bg);
+            color: white;
+            padding: 60px 0;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--accent-color);
+        }
+
+        .footer {
+            background: var(--dark-bg);
+            color: white;
+            padding: 40px 0;
+        }
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+            .logo-large {
+                height: 150px;
+            }
+            .logo {
+                height: 30px;
+            }
+        }
+
+        .animate-fade-in {
+            animation: fadeIn 1s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .story-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(240, 249, 244, 0.95) 100%);
+            border-radius: 20px;
+            padding: 3rem;
+            margin: 4rem 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border: 2px solid rgba(0, 136, 44, 0.2);
+        }
+
+        .logo {
+            height: 40px;
+            width: auto;
+            margin-right: 10px;
+        }
+
+        .logo-large {
+            height: 200px;
+            width: auto;
+            margin-bottom: 2rem;
+        }
+
+        .navbar-brand {
+            display: flex;
+            align-items: center;
+        }
+
+        .story-icon {
+            font-size: 4rem;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+        }
+
+        .story-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--dark-bg);
+            margin-bottom: 1.5rem;
+        }
+
+        .story-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #475569;
+        }
+
+        .story-highlight {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="#" style="color: var(--primary-color); font-size: 1.5rem;">
+                <img src="qwisha.png" alt="Qwisha Logo" class="logo"> Qwisha
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#features">Features</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#limitations">Limitations</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#future">Future</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="protocol.html">Protocol</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="gradient-bg">
+        <div class="container">
+            <div class="row align-items-center hero-section">
+                <div class="col-lg-6 animate-fade-in">
+                    <h1 class="hero-title">Modern Messaging, No Internet Required</h1>
+                    <p class="hero-subtitle">
+                        Experience WhatsApp-like features using only SMS. Edit, delete, reply, and search messages—all without an internet connection.
+                    </p>
+                    <div class="d-flex gap-3 flex-wrap">
+                        <a href="Qwisha 202511091902.apk" class="download-btn">
+                            <i class="bi bi-download"></i> Download Now
+                        </a>
+                        <a href="protocol.html" class="btn btn-outline-light btn-lg">
+                            <i class="bi bi-code-slash"></i> Learn About Protocol
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-6 text-center">
+                    <img src="qwisha.png" alt="Qwisha Logo" class="logo-large animate-fade-in" style="filter: drop-shadow(0 10px 30px rgba(0,0,0,0.3));">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="py-5" style="background: var(--light-bg);">
+        <div class="container py-5">
+            <h2 class="section-title text-center">Powerful Features</h2>
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-4">
+                    <div class="feature-card">
+                        <div class="text-center">
+                            <i class="bi bi-pencil-square feature-icon"></i>
+                            <h4 class="fw-bold">Edit Messages</h4>
+                            <p class="text-muted">Made a typo? No problem! Edit your sent messages and the recipient will see the updated version instantly.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="feature-card">
+                        <div class="text-center">
+                            <i class="bi bi-trash feature-icon"></i>
+                            <h4 class="fw-bold">Delete Messages</h4>
+                            <p class="text-muted">Remove messages from both your device and the recipient's device. Perfect for fixing mistakes or removing sensitive information.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="feature-card">
+                        <div class="text-center">
+                            <i class="bi bi-reply feature-icon"></i>
+                            <h4 class="fw-bold">Reply to Messages</h4>
+                            <p class="text-muted">Reply directly to specific messages, creating threaded conversations that are easy to follow.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="feature-card">
+                        <div class="text-center">
+                            <i class="bi bi-search feature-icon"></i>
+                            <h4 class="fw-bold">Smart Search</h4>
+                            <p class="text-muted">Search through all your messages instantly. Find any conversation, keyword, or contact with lightning-fast search.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="feature-card">
+                        <div class="text-center">
+                            <i class="bi bi-wifi-off feature-icon"></i>
+                            <h4 class="fw-bold">100% Offline</h4>
+                            <p class="text-muted">Works entirely without internet. No servers, no data usage, just pure SMS communication.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="feature-card">
+                        <div class="text-center">
+                            <i class="bi bi-check-circle feature-icon"></i>
+                            <h4 class="fw-bold">Delivery Reports</h4>
+                            <p class="text-muted">Know when your messages are sent and delivered. Get real-time status updates for all your messages.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats-section">
+        <div class="container">
+            <div class="row text-center">
+                <div class="col-md-4 mb-4">
+                    <div class="stat-number">0</div>
+                    <p class="fs-5">Internet Required</p>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="stat-number">100%</div>
+                    <p class="fs-5">Offline Capable</p>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="stat-number">∞</div>
+                    <p class="fs-5">No Server Costs</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Limitations Section -->
+    <section id="limitations" class="py-5">
+        <div class="container py-5">
+            <h2 class="section-title text-center">Important Limitations</h2>
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <div class="limitation-card">
+                        <h5><i class="bi bi-exclamation-triangle-fill text-warning"></i> Both Users Need Qwisha</h5>
+                        <p class="mb-0">For advanced features like edit, delete, and reply to work, both the sender and recipient must have Qwisha installed. Regular SMS still works for non-users, but without the enhanced features.</p>
+                    </div>
+                    <div class="limitation-card">
+                        <h5><i class="bi bi-phone-fill text-warning"></i> Default SMS App Required</h5>
+                        <p class="mb-0">To fully utilize Qwisha's features, you'll need to set it as your default SMS app. This allows the app to manage your messages properly.</p>
+                    </div>
+                    <div class="limitation-card">
+                        <h5><i class="bi bi-clock-history text-warning"></i> Message Ordering</h5>
+                        <p class="mb-0">SMS messages may arrive out of order. Qwisha handles this intelligently, but in rare cases, message ordering might be slightly affected.</p>
+                    </div>
+                    <div class="limitation-card">
+                        <h5><i class="bi bi-shield-exclamation text-warning"></i> Standard SMS Security</h5>
+                        <p class="mb-0">Qwisha uses standard SMS, which means messages are not end-to-end encrypted by default. Future versions will include optional encryption.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Future Promises Section -->
+    <section id="future" class="py-5" style="background: var(--light-bg);">
+        <div class="container py-5">
+            <h2 class="section-title text-center">What's Coming Next</h2>
+            <div class="row">
+                <div class="col-lg-10 mx-auto">
+                    <div class="future-card">
+                        <h4><i class="bi bi-people-fill" style="color: var(--primary-color);"></i> Group Messaging</h4>
+                        <p class="mb-0">Send messages to multiple recipients simultaneously. Create group chats with full edit, delete, and reply support.</p>
+                    </div>
+                    <div class="future-card">
+                        <h4><i class="bi bi-palette" style="color: var(--primary-color);"></i> Customization</h4>
+                        <p class="mb-0">Custom themes, fonts, and notification sounds. Make Qwisha truly yours with extensive customization options.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="gradient-bg py-5">
+        <div class="container text-center py-5">
+            <h2 class="text-white mb-4" style="font-size: 2.5rem;">Ready to Get Started?</h2>
+            <p class="text-white fs-5 mb-4">Download Qwisha today and experience the future of SMS messaging.</p>
+            <a href="Qwisha 202511091902.apk" class="download-btn">
+                <i class="bi bi-download"></i> Download for Android
+            </a>
+        </div>
+    </section>
+
+    <!-- Story Section -->
+    <section class="py-5" style="background: var(--light-bg);">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <div class="story-card text-center">
+                        <i class="bi bi-translate story-icon"></i>
+                        <h2 class="story-title">The Story Behind Qwisha</h2>
+                        <p class="story-text">
+                            Qwisha was born out of necessity during the 6-day nation-wide internet ban in October-November 2025. 
+                            Like most people, the inventor experienced firsthand how frustrating it was to rely on standard SMS apps 
+                            when the internet was unavailable. The limitations of traditional SMS—no message editing, no replies to 
+                            specific messages, no search functionality—became painfully clear during this period of forced offline 
+                            communication.
+                        </p>
+                        <p class="story-text">
+                            This experience sparked the idea to create a messaging app that brings modern WhatsApp-like features to SMS, 
+                            ensuring that even when the internet is unavailable, people can still communicate effectively and efficiently. 
+                            The name <span class="story-highlight">Qwisha</span> is derived from the Swahili word 
+                            <span class="story-highlight">"Kwisha"</span>, which is commonly used as slang in SMS conversations 
+                            to signify the end of a conversation with mutual understanding or agreement. Just as "Kwisha" 
+                            marks a meaningful conclusion to a dialogue, Qwisha aims to bring meaningful, modern messaging 
+                            capabilities to SMS conversations—allowing you to communicate effectively and reach understanding, 
+                            even without an internet connection.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5><img src="qwisha.png" alt="Qwisha Logo" style="height: 30px; width: auto; margin-right: 10px; vertical-align: middle;"> Qwisha</h5>
+                    <p>Modern messaging, resilient to internet restrictions.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <p class="mb-0">
+                        Developed by 
+                        <strong>
+                            <a href="https://github.com/vincent-laizer">Vicent Laizer</a>
+                        </strong>
+                    </p>
+                    <a href="protocol.html" class="text-white text-decoration-none">
+                        <i class="bi bi-code-slash"></i> Qwisha Protocol
+                    </a>
+                </div>
+            </div>
+            <hr class="bg-white my-4">
+            <div class="text-center">
+                <p class="mb-0">&copy; 2025 Qwisha. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Animate on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animation = 'fadeIn 0.6s ease-in';
+                    entry.target.style.opacity = '1';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.feature-card, .limitation-card, .future-card, .story-card').forEach(card => {
+            card.style.opacity = '0';
+            observer.observe(card);
+        });
+    </script>
+</body>
+</html>
+
